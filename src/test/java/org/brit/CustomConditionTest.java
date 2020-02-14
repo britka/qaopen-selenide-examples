@@ -19,8 +19,7 @@ public class CustomConditionTest {
 
     @Test
     public void dragAndDropTest() {
-        $("#content")
-                .shouldHave(attribute_contains("class", "large-12"));
+        $("#content").shouldHave(attribute_contains("class", "large-12"));
     }
 
 
