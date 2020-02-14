@@ -9,6 +9,7 @@ import com.codeborne.selenide.WebDriverRunner;
 import net.lightbody.bmp.BrowserMobProxy;
 import net.lightbody.bmp.BrowserMobProxyServer;
 import net.lightbody.bmp.proxy.CaptureType;
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.Proxy;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -20,6 +21,7 @@ import org.testng.annotations.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.List;
 
 import static com.codeborne.selenide.Selenide.*;
@@ -32,7 +34,9 @@ public class TrafficWithInternalProxy {
     BrowserMobProxy bmp;
 
     @BeforeClass
-    public void beforeClass() {
+    public void beforeClass() throws IOException {
+        Files.createDirectories(new File("hars").toPath());
+        FileUtils.cleanDirectory(new File("hars"));
         Configuration.proxyEnabled = true;
         Configuration.startMaximized = true;
         Configuration.downloadsFolder = "myDownloads";

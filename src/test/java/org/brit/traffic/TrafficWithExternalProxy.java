@@ -1,14 +1,11 @@
 package org.brit.traffic;
 
-import com.browserup.bup.BrowserUpProxy;
-import com.browserup.harreader.model.Har;
-import com.browserup.harreader.model.HarEntry;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Configuration;
-import com.codeborne.selenide.WebDriverRunner;
 import net.lightbody.bmp.BrowserMobProxy;
 import net.lightbody.bmp.BrowserMobProxyServer;
 import net.lightbody.bmp.proxy.CaptureType;
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.Proxy;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -20,10 +17,10 @@ import org.testng.annotations.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.List;
 
 import static com.codeborne.selenide.Selenide.*;
-import static com.codeborne.selenide.Selenide.sleep;
 
 /**
  * @author sbrit
@@ -33,18 +30,19 @@ public class TrafficWithExternalProxy {
     BrowserMobProxy bmp;
 
     @BeforeClass
-    public void beforeClass() {
+    public void beforeClass() throws IOException {
+        Files.createDirectories(new File("hars").toPath());
+        FileUtils.cleanDirectory(new File("hars"));
         bmp = new BrowserMobProxyServer();
         bmp.setTrustAllServers(true);
         bmp.setHarCaptureTypes(CaptureType.getAllContentCaptureTypes());
         bmp.setHarCaptureTypes(CaptureType.getHeaderCaptureTypes());
         bmp.start(0);
         Configuration.startMaximized = true;
-        Configuration.downloadsFolder = "myDownloads";
     }
 
     @AfterClass
-    public void afterClass(){
+    public void afterClass() {
         bmp.stop();
     }
 
