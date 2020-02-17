@@ -14,12 +14,13 @@ public class CustomConditionTest {
 
     @BeforeClass
     public void beforeCustomConditionTestClass() {
-        open("http://localhost:7080/dynamic_content");
+        open("http://the-internet.herokuapp.com/dynamic_content");
     }
 
     @Test
     public void dragAndDropTest() {
-        $("#content").shouldHave(attribute_contains("class", "large-12"));
+        $("#content")
+                .shouldHave(attribute_contains("class", "large-12"));
     }
 
 

@@ -17,7 +17,7 @@ import static org.openqa.selenium.By.linkText;
  */
 public class FileDownLoadTest {
     @Test
-    public void testTest() throws IOException {
+    public void testTestWithProxy() throws IOException {
         Configuration.downloadsFolder = "downloads";
         Configuration.proxyEnabled = true;
         Configuration.fileDownload = FileDownloadMode.PROXY;
@@ -31,7 +31,7 @@ public class FileDownLoadTest {
     }
 
     @Test
-    public void testTest1() throws IOException {
+    public void testTestWithoutProxy() throws IOException {
         Configuration.downloadsFolder = "downloads";
         open("http://the-internet.herokuapp.com/download");
         FileUtils.cleanDirectory(new File(Configuration.downloadsFolder));
@@ -41,7 +41,7 @@ public class FileDownLoadTest {
     }
 
     @Test
-    public void testTest3() throws IOException {
+    public void testTestWithProxy2() throws IOException {
         Configuration.downloadsFolder = "downloads";
         Configuration.proxyEnabled = true;
         Configuration.fileDownload = FileDownloadMode.PROXY;
