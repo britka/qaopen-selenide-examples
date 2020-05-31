@@ -5,16 +5,10 @@ import com.browserup.harreader.model.Har;
 import com.browserup.harreader.model.HarEntry;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.FileDownloadMode;
 import com.codeborne.selenide.WebDriverRunner;
-import net.lightbody.bmp.BrowserMobProxy;
-import net.lightbody.bmp.BrowserMobProxyServer;
-import net.lightbody.bmp.proxy.CaptureType;
 import org.apache.commons.io.FileUtils;
-import org.openqa.selenium.Proxy;
-import org.openqa.selenium.remote.CapabilityType;
-import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.Assert;
-import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -25,13 +19,11 @@ import java.nio.file.Files;
 import java.util.List;
 
 import static com.codeborne.selenide.Selenide.*;
-import static com.codeborne.selenide.Selenide.sleep;
 
 /**
  * @author sbrit
  */
 public class TrafficWithInternalProxy {
-    BrowserMobProxy bmp;
 
     @BeforeClass
     public void beforeClass() throws IOException {
@@ -43,7 +35,7 @@ public class TrafficWithInternalProxy {
     }
 
     @Test(dataProvider = "statusCodesProvider")
-    public void statusCodes(int statusCodes) {
+    public void statusCodes(int statusCodes) throws IOException {
         open("http://the-internet.herokuapp.com/status_codes");
         BrowserUpProxy proxy = WebDriverRunner.getSelenideProxy().getProxy();
         proxy.newHar();

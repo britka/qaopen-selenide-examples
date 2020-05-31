@@ -22,32 +22,21 @@ public class FileDownLoadTest {
     @BeforeClass
     public void beforeFileDownLoadTestClass() throws IOException {
         Configuration.downloadsFolder = "downloads";
-        Configuration.proxyEnabled = true;
-        Configuration.fileDownload = FileDownloadMode.PROXY;
-        open("http://the-internet.herokuapp.com/upload");
-        $("#file-upload").uploadFromClasspath("fileToDownload.txt");
-        $("#file-submit").click();
-        $("#uploaded-files").shouldBe(Condition.visible, Condition.exactText("fileToDownload.txt"));
-        if (new File(Configuration.downloadsFolder).exists()){
-            FileUtils.cleanDirectory(new File(Configuration.downloadsFolder));
-        }
-    }
-
-
-    @Test
-    public void testTestWithProxy() throws IOException {
-        open("https://codepen.io/gladchinda/full/GemGNG");
-        switchTo().frame("result");
-        $(linkText("Export Photos")).click();
-        sleep(1500);
-        List<String> strings = FileUtils.readLines(new File(Configuration.downloadsFolder + "/photos.csv"), "UTF-8");
-        strings.forEach(System.out::println);
+       Configuration.proxyEnabled = true;
+       Configuration.fileDownload = FileDownloadMode.PROXY;
+//        open("http://the-internet.herokuapp.com/upload");
+//        $("#file-upload").uploadFromClasspath("fileToDownload.txt");
+//        $("#file-submit").click();
+//        $("#uploaded-files").shouldBe(Condition.visible, Condition.exactText("fileToDownload.txt"));
+//        if (new File(Configuration.downloadsFolder).exists()){
+//            FileUtils.cleanDirectory(new File(Configuration.downloadsFolder));
+//        }
     }
 
     @Test
     public void testTestWithoutProxy() throws IOException {
         open("http://the-internet.herokuapp.com/download");
-        File file = $(linkText("UploadNotepad.txt")).download();
+        File file = $(linkText("fileToDownload.txt")).download();
         List<String> strings = FileUtils.readLines(file, "UTF-8");
         strings.forEach(System.out::println);
     }
@@ -55,7 +44,8 @@ public class FileDownLoadTest {
     @Test
     public void testTestWithProxy2() throws IOException {
         open("http://www.jtricks.com/bits/content_disposition.html");
-        File file = $(linkText("Text file with Content-Type of text/plain.")).download();
+     //   File file = $(linkText("Text file with Content-Type of text/plain.")).download();
+        File file = $(linkText("Text file with Content-Type of application/x-unknown.")).download();
         List<String> strings = FileUtils.readLines(file, "UTF-8");
         strings.forEach(System.out::println);
     }

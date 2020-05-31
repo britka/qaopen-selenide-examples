@@ -5,6 +5,7 @@ import org.testng.annotations.Test;
 
 import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.Selenide.sleep;
+import static io.github.bonigarcia.wdm.WebDriverManager.chromedriver;
 
 /**
  * @author sbrit
